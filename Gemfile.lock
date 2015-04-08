@@ -9,11 +9,9 @@ GEM
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     tilt (1.4.1)
-    useragent (0.13.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   sinatra
-  useragent
