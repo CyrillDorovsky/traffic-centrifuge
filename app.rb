@@ -1,5 +1,9 @@
 require 'sinatra'
 
+get '/' do
+  ''
+end
+
 get '/hola' do
   android_version = request.user_agent[/Android (.*?);/]
   user_platform =  if android_version
