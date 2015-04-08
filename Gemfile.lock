@@ -1,0 +1,10 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    useragent (0.13.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  useragent
