@@ -36,20 +36,26 @@
                     %a{:href => "offer_direct"} \o/ 
       / Banner
       %section#banner
-        .inner
-          %h2= messages[ :wellcome_back ] 
-          %p
-            = messages[ :we_choose ]
-            %br
-            = messages[ :best_apps ]
-            %br/
-            = messages[ :just_for_you ]
-            = succeed "." do
-              %a{ href: apps_list[ :kings_empire ][ :link ] } Проверьте
-          %ul.actions
-            %li
-              %a.button.special{ href: apps_list[ :kings_empire ][ :link ] }
-                = apps_list[ :kings_empire ][ :title ]
+        %p
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+          %br
+        %ul.actions
+          %li
+            %a.button.icon.fa-download.big{ href: apps_list[ :kings_empire ][ :link ] }
+              = apps_list[ :kings_empire ][ :title ]
         %a.more.scrolly{:href => "#one"} Хочу еще!
       / One
       %section#one.wrapper.style1.special
