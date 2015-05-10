@@ -20,7 +20,7 @@
       / Header
       %header#header.alt
         %h1
-          %a{:href => "index.html"} Spectral
+          %a{:href => "radio"} Dodjo
         %nav#nav
           %ul
             %li.special
@@ -29,11 +29,11 @@
               #menu
                 %ul
                   %li
-                    %a{:href => "campaign_js"} Кампания js
+                    %a{:href => "campaign_js"} Игры
                   %li
-                    %a{:href => "campaign_direct"} Кампания direct
+                    %a{:href => "campaign_direct"} Приложения
                   %li
-                    %a{:href => "offer_direct"} Оффер direct
+                    %a{:href => "offer_direct"} \o/ 
       / Banner
       %section#banner
         .inner
@@ -45,10 +45,11 @@
             %br/
             = messages[ :just_for_you ]
             = succeed "." do
-              %a( href= link_to_best_app ) Проверьте
+              %a{ href: apps_list[ :kings_empire ][ :link ] } Проверьте
           %ul.actions
             %li
-              %a.button.special( href= link_to_best_app ) Hola launcher. 
+              %a.button.special{ href: apps_list[ :kings_empire ][ :link ] }
+                = apps_list[ :kings_empire ][ :title ]
         %a.more.scrolly{:href => "#one"} Хочу еще!
       / One
       %section#one.wrapper.style1.special
