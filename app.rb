@@ -8,3 +8,7 @@ require 'advert'
 get '/' do
   haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
 end
+
+get '/lazy' do
+  haml :lazy
+end
