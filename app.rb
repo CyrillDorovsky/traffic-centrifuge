@@ -3,7 +3,21 @@ require 'haml'
 
 $LOAD_PATH << '.'
 require 'message'
+require 'advert'
 
 get '/' do
-  haml :index, locals: { messages: Message.index, link_to_best_app: 'http://target.xeclick.com/o/39168' }
+  haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
+end
+
+get '/apps' do
+  haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
+end
+
+get '/games' do
+  haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
+end
+
+
+get '/lazy' do
+  haml :lazy, locals: { lazy: Advert.apps[ :lazy ] }
 end
