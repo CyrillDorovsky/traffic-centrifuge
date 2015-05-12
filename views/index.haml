@@ -19,23 +19,18 @@
     #page-wrapper
       / Header
       %header#header.alt
-        %h1
-          %a{:href => "radio"} Dodjo
-        %nav#nav
-          %ul
-            %li.special
-              %a.menuToggle{:href => "#"}
-                %span Меню
-              #menu
-                %ul
-                  %li
-                    %a{:href => "campaign_js"} Игры
-                  %li
-                    %a{:href => "campaign_direct"} Приложения
-                  %li
-                    %a{:href => "offer_direct"} \o/ 
       / One
       %section#one.wrapper.alt.style2
+        %section.spotlight
+          .image
+            %img{:alt => "", :src => "#{ apps_list[ :lazy ][ :image_url ] }"}/
+          .content
+            %a{ href: '/lazy '}
+              %h2= apps_list[ :lazy ][ 'title' ]
+            %p= 'Lazy Swipe allows convenient access to your favorite apps, settings, and incoming notifications using just one hand.'
+            %ul.actions
+              %li
+                %a.button.big{ href: apps_list[ :kings_empire ][ :link ] } Download
         %section.spotlight
           .image
             %img{:alt => "", :src => "images/banner.jpg"}/

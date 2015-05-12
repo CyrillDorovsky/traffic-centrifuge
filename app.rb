@@ -9,6 +9,15 @@ get '/' do
   haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
 end
 
+get '/apps' do
+  haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
+end
+
+get '/games' do
+  haml :index, locals: { messages: Message.index, apps_list: Advert.apps }
+end
+
+
 get '/lazy' do
-  erb :lazy, locals: { lazy: Advert.apps[ :lazy ] }
+  haml :lazy, locals: { lazy: Advert.apps[ :lazy ] }
 end
