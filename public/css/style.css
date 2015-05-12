@@ -560,7 +560,7 @@
 		{
 			position: relative;
 			display: inline-block;
-			background: #23A4EE;
+			background: #83BC56;
 			color: #fff;
 			text-align: center;
 			border-radius: 0.5em;
@@ -737,7 +737,7 @@
 	
 		#header h1
 		{
-			color: #A7A7A7;
+			color: #6295B4; /*#A7A7A7;*/
 			font-size: 3em;
 			line-height: 1em;
 		}
@@ -773,12 +773,12 @@
 		#header header
 		{
 			display: inline-block;
-			margin-right: 230px;
+			margin-right: 224px;
 		}
 		
 		#header footer
 		{
-			margin: 1em 200px 0px 0px;
+			margin: 1em 221px 0px 0px;
 		}
 		
 		#header hr
