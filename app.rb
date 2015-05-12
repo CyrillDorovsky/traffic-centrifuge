@@ -10,5 +10,5 @@ get '/' do
 end
 
 get '/lazy' do
-  haml :lazy
+  erb :lazy
 end
