@@ -10,5 +10,5 @@ get '/' do
 end
 
 get '/lazy' do
-  erb :lazy
+  erb :lazy, locals: { lazy: Advert.apps[ :lazy ] }
 end
