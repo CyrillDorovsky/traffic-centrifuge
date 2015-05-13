@@ -733,22 +733,17 @@
 			margin: 0;
 			padding: 4em 0 0 0;
 		}
-	.inner img{
-		margin-bottom: 30px;
-	}
+	
 		#header h1
 		{
-			color: #fff; /*#A7A7A7;*/
+			color: #6295B4; /*#A7A7A7;*/
 			font-size: 3em;
 			line-height: 1em;
 		}
 
 			.homepage #header h1
 			{
-				font-size: 3em;
-				background: rgba(28, 28, 28, 0.4);
-				padding: 25px;
-				border-radius: 53%;
+				font-size: 4em;
 			}
 		
 			#header h1 a
@@ -770,8 +765,7 @@
 			height: 4.5em;
 			line-height: 4.5em;
 			text-align: center;
-			font-size: 1.55em;
-			border: 1px solid #E8E5E4;
+			font-size: 1.25em;
 			padding: 0;
 		}
 		
@@ -783,7 +777,7 @@
 		
 		#header footer
 		{
-			margin: 1em 190px 0px 0px;
+			margin: 1em 221px 0px 0px;
 		}
 		
 		#header hr
