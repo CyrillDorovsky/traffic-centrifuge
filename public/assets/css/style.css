@@ -2269,7 +2269,7 @@
 		input[type="button"].big,
 		button.big,
 		.button.big {
-			font-size: 1.35em;
+			font-size: 1.00em;
 		}
 
 		input[type="submit"].special,
