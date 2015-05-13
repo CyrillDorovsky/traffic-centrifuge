@@ -31,11 +31,12 @@
       / Inner
       .inner
         %header
-          %img{:height => "50px", :src => "/#{ app_name }/images/icon.png"}/
+          %img{:height => "80px", :src => "/#{ app_name }/images/icon.png"}/
           %h1
             %a#logo{ href: "index.html", style: app[ 'extended_style' ] }= app[ 'title' ]
-        %footer
           %a.button.circled.scrolly{ href: app[ :link ] } Download
+        %footer
+          
       / Nav
       %nav#nav
         %ul
