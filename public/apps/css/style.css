@@ -217,7 +217,7 @@
 
 		header
 		{
-			margin: 0 0 1em 0;
+			margin: 0;
 		}
 
 			header > p
@@ -779,7 +779,7 @@
 		#header header
 		{
 			display: inline-block;
-			margin-right: 224px;
+			margin-right: 150px;
 		}
 		
 		#header footer
