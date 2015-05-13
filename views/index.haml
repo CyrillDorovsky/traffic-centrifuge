@@ -21,52 +21,15 @@
       %header#header.alt
       / One
       %section#one.wrapper.alt.style2
-        %section.spotlight
-          .image
-            %img{:alt => "", :src => "#{ apps_list[ :lazy ][ :image_url ] }"}/
-          .content
-            %a{ href: '/lazy '}
-              %h2= apps_list[ :lazy ][ 'title' ]
-            %p= 'Lazy Swipe allows convenient access to your favorite apps, settings, and incoming notifications using just one hand.'
-            %ul.actions
-              %li
-                %a.button.big{ href: apps_list[ :lazy ][ :link ] } Download
-        %section.spotlight
-          .image
-            %img{:alt => "", :src => "images/banner.jpg"}/
-          .content
-            %h2= apps_list[ :kings_empire ][ 'title' ]
-            %p= apps_list[ :kings_empire ][ 'message' ]
-            %ul.actions
-              %li
-                %a.button.big{ href: apps_list[ :kings_empire ][ :link ] } Download
-        %section.spotlight
-          .image
-            %img{:alt => "", :src => "images/pic01.jpg"}/
-          .content
-            %h2
-              World of Tanks Blitz
-            %p= apps_list[ :world_of_tanks ][ 'message' ]
-            %ul.actions
-              %li
-                %a.button.big{ href: apps_list[ :world_of_tanks ][ :link ] } Download
-        %section.spotlight
-          .image
-            %img{:alt => "", :src => "images/pic02.jpg"}/
-          .content
-            %h2
-              = apps_list[ :du_battery_saver ][ 'title' ]
-            %p= apps_list[ :du_battery_saver ][ 'message' ]
-            %ul.actions
-              %li
-                %a.button.big{ href: apps_list[ :du_battery_saver ][ :link ] } Download
-        %section.spotlight
-          .image
-            %img{:alt => "", :src => "images/pic03.jpg"}/
-          .content
-            %h2
-              = apps_list[ :leo_privacy ][ 'title' ]
-            %p= apps_list[ :leo_privacy ][ 'message' ]
-            %ul.actions
-              %li
-                %a.button.big{ href: apps_list[ :leo_privacy ][ :link ] } Download
+        - apps_list.each do | app_name, app |
+          %section.spotlight
+            .image
+              %a{ href: "#{ app[ :kind ] }/#{ app_name }"}
+                %img{ :alt => "", :src => "/apps_images/#{ app_name }.jpg" }/
+            .content
+              %a{ href: "#{ app[ :kind ] }/#{ app_name }"}
+                %h2= app[ 'title' ]
+              %p= app[ 'message' ]
+              %ul.actions
+                %li
+                  %a.button.big{ href: app[ :link ] } Download
