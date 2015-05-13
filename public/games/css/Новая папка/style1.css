@@ -217,7 +217,7 @@
 
 		header
 		{
-			margin: 0 0 1em 0;
+			margin: 0;
 		}
 
 			header > p
@@ -560,7 +560,7 @@
 		{
 			position: relative;
 			display: inline-block;
-			background: #df7366;
+			background: #83BC56;
 			color: #fff;
 			text-align: center;
 			border-radius: 0.5em;
@@ -583,7 +583,7 @@
 			.button:hover
 			{
 				color: #fff;
-				background: #ef8376;
+				background: #1C92FD;
 			}
 			
 			input[type="button"].alt,
@@ -689,11 +689,10 @@
 	#header
 	{
 		position: relative;
-		background-image: url('../images/header.jpg');
 		background-size: cover;
 		background-position: center center;
 		background-attachment: fixed;
-		color: #fff;
+		    color: #ABABAB;
 		text-align: center;
 		padding: 2.5em 0 2em 0;
 		cursor: default;
@@ -734,17 +733,22 @@
 			margin: 0;
 			padding: 4em 0 0 0;
 		}
-	
+	.inner img{
+		margin-bottom: 30px;
+	}
 		#header h1
 		{
-			color: #fff;
+			color: #FEFEFE; /*#A7A7A7;*/
 			font-size: 3em;
 			line-height: 1em;
 		}
 
 			.homepage #header h1
 			{
-				font-size: 4em;
+				font-size: 3em;
+				background: rgba(28, 28, 28, 0.4);
+				padding: 25px;
+				border-radius: 53%;
 			}
 		
 			#header h1 a
@@ -766,18 +770,21 @@
 			height: 4.5em;
 			line-height: 4.5em;
 			text-align: center;
-			font-size: 1.25em;
+			font-size: 1.55em;
+			border: 1px solid #E8E5E4;
 			padding: 0;
+			margin-top: 45px;
 		}
 		
 		#header header
 		{
 			display: inline-block;
+			margin-right: 100px;
 		}
 		
 		#header footer
 		{
-			margin: 1em 0 0 0;
+			margin: 0em 0px 0px 0px;
 		}
 		
 		#header hr
@@ -806,9 +813,10 @@
 		left: 0;
 		width: 100%;
 		text-align: center;
-		padding: 1.5em 0 1.5em 0;
+		padding: 0.6em 0 0.6em 0;
 		z-index: 1;
 		overflow: hidden;
+		background: none repeat scroll 0% 0% rgba(28, 28, 28, 0.4);
 	}
 	
 		#nav > ul
@@ -877,6 +885,7 @@
 					text-decoration: none;
 					border: 0;
 					outline: 0;
+					color: #fff;
 				}
 
 				#nav > ul > li > ul

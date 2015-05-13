@@ -560,7 +560,7 @@
 		{
 			position: relative;
 			display: inline-block;
-			background: #df7366;
+			background: #83BC56;
 			color: #fff;
 			text-align: center;
 			border-radius: 0.5em;
@@ -583,7 +583,7 @@
 			.button:hover
 			{
 				color: #fff;
-				background: #ef8376;
+				background: #1C92FD;
 			}
 			
 			input[type="button"].alt,
@@ -689,11 +689,10 @@
 	#header
 	{
 		position: relative;
-		background-image: url('../images/header.jpg');
 		background-size: cover;
 		background-position: center center;
 		background-attachment: fixed;
-		color: #fff;
+		    color: #ABABAB;
 		text-align: center;
 		padding: 2.5em 0 2em 0;
 		cursor: default;
@@ -737,7 +736,7 @@
 	
 		#header h1
 		{
-			color: #fff;
+			color: #6295B4; /*#A7A7A7;*/
 			font-size: 3em;
 			line-height: 1em;
 		}
@@ -773,11 +772,12 @@
 		#header header
 		{
 			display: inline-block;
+			margin-right: 224px;
 		}
 		
 		#header footer
 		{
-			margin: 1em 0 0 0;
+			margin: 1em 221px 0px 0px;
 		}
 		
 		#header hr
@@ -877,6 +877,7 @@
 					text-decoration: none;
 					border: 0;
 					outline: 0;
+					color: #46516F;
 				}
 
 				#nav > ul > li > ul
