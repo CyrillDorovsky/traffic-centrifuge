@@ -750,7 +750,7 @@
 			background: none repeat scroll 0% 0% rgba(1, 20, 6, 0.4);
 			padding: 12px;
 			border-radius: 50px;
-			margin-top: 30px;
+			margin-top: 15px;
 		}
 
 			.homepage #header h1
@@ -818,7 +818,7 @@
 		left: 0;
 		width: 100%;
 		text-align: center;
-		padding: 0.1em 0 0.1em 0;
+		padding: 3px 0 1px 0;
 		z-index: 1;
 		overflow: hidden;
 		background: none repeat scroll 0% 0% rgba(28, 28, 28, 0.4);
