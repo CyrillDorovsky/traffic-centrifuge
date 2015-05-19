@@ -1,0 +1,12 @@
+%table.table
+  %thead
+    %tr
+      %th img_url
+  %tbody
+    - apps_list.each do | name, value |
+      %tr
+        - value.each do | attribute_key, attribute |
+          %th= attribute
+
+- apps_list.each do | name, value |
+  %a{ href: name, class: 'btn btn-primary btn-lg active btn-block', role: 'button' }= value[ 'title' ]
