@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'haml'
-gem 'mongo'
+gem 'slim'
+gem 'hashids'
+gem 'puma'
+gem 'redis'
+gem 'bunny'
+gem 'newrelic_rpm'
