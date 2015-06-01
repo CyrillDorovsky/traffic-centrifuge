@@ -18,28 +18,25 @@ configure do
 
   $bunny = Bunny.new ENV['CLOUDAMQP_URL']
   $bunny.start
+  $bunny_channel = $bunny.create_channel
 
   enable :sessions
 end
 
 helpers do
-  def hashid
-    Hashids.new( 'richpays number one' ) #ENV[ 'HASHID_SALT' ] )
-  end
 end
 
 get '/' do
-  root_opts = { redorect_code: hashid.encode( ) }
   headers \
     "Content-Type" => "application/json"
-  body env['request_id']
+  body JSON.generate( request_id: env['request_id'] )
 end
 
 get '/:redirect_code' do
-  q = $bunny.queue('direct_offers')
+  q = $bunny_channel.queue('direct_offers')
   offer = $redis.get( "direct_offer_#{ params[ :redirect_code ] }" )
-  q.pubslish "#{ offer }"
+  q.publish "#{ offer }"
   headers \
     "Content-Type" => "application/json"
-  body JSON.parse( offer )
+  body offer
 end
