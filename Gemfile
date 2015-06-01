@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'useragent'
 gem 'slim'
+gem 'geoip'
 gem 'hashids'
 gem 'puma'
-gem 'json'
 gem 'redis'
 gem 'bunny'
 gem 'newrelic_rpm'
