@@ -5,6 +5,7 @@ GEM
     bunny (1.7.0)
       amq-protocol (>= 1.9.2)
     hashids (1.0.2)
+    json (1.8.0-java)
     newrelic_rpm (3.9.1.236)
     puma (2.11.3)
       rack (>= 1.1, < 2.0)
@@ -31,6 +32,7 @@ PLATFORMS
 DEPENDENCIES
   bunny
   hashids
+  json
   newrelic_rpm
   puma
   redis
