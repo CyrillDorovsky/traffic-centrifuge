@@ -43,8 +43,8 @@ get '/:redirect_code' do
   if buyer_request.acceptable
     headers \
       "Content-Type" => "application/json"
-    body "redirect_to #{ buyer_request.redirect_url }"
+    redirect buyer_request.redirect_url
   else
-    body ''
+    redirect about:blank
   end
 end
