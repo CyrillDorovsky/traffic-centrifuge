@@ -8,6 +8,12 @@ require 'bunny'
 require './buyer_request'
 require './offer'
 
+if Sinatra::Base.development?
+  logger = ::File.open("log/development.log", "a+")
+  STDOUT.reopen(logger)
+  STDERR.reopen(logger)
+  use Rack::CommonLogger, logger
+end
 use RequestIdMiddleware
 use Rack::Session::Pool, :expire_after => 2592000
 
@@ -45,6 +51,6 @@ get '/:redirect_code' do
       "Content-Type" => "application/json"
     redirect buyer_request.redirect_url
   else
-    redirect about:blank
+    redirect 'about:blank'
   end
 end
