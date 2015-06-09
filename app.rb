@@ -2,11 +2,12 @@ require 'sinatra'
 require './request_id_middleware'
 require './request_information'
 require 'hashids'
+require 'fileutils'
 require 'json'
 require 'redis'
 require 'bunny'
 require './buyer_request'
-require './offer'
+require './direct_offer'
 
 if Sinatra::Base.development?
   logger = ::File.open("log/development.log", "a+")
@@ -43,14 +44,12 @@ end
 
 get '/:redirect_code' do
   session[ :request_id ] = env['request_id'] 
-  q = $bunny_channel.queue('direct_offers')
   buyer_request = BuyerRequest.new( request, session, params )
+  q = $bunny_channel.queue( "direct_offers" )
   q.publish buyer_request.visitor
   if buyer_request.acceptable
-    headers \
-      "Content-Type" => "application/json"
     redirect buyer_request.redirect_url
   else
-    redirect 'about:blank'
+    body JSON.generate( buyer_request.direct_offer.redis_record )
   end
 end

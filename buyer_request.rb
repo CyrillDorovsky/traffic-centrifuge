@@ -1,35 +1,34 @@
 require 'useragent'
 
 class BuyerRequest
-  attr_accessor :request, :session, :redirect_url, :acceptable
+  attr_accessor :request, :session, :redirect_url, :direct_offer, :dealer_id, :url_query
 
   def initialize( request, session, params = {} )
-    @redirect_url     = params[ :redirect_code ]
-    @redis            = offer_from_redis( @redirect_url )
     @request = RequestInformation.new( request )
-    @session = session
-    @request_id = session[ 'request_id' ]
-    @offer = Offer.new( params[ :redirect_code ] )
+    @direct_offer = DirectOffer.new( params[ 'redirect_code' ] )
+    @redirect_url = modify_url_with_uniq_iq( @direct_offer )
+    @dealer_id = @direct_offer.dealer_id
+    @url_query = @request.url_query
   end
 
   def visitor
-    JSON.generate( offer: @offer.for_message, request: @request.for_message, event: 'visitor' )
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query,event: 'show' )
   end
 
   def acceptable
-    check_platform & check_country & @redis['enabled'] & @redis['approved']
-  end
-
-  def redirect_url
-    @redis['seller_url'].gsub( 'aff_sub=', "aff_sub=#{ @request_id }" )
+    if ENV['RACK_ENV'] == 'production'
+      check_platform & check_country & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
+    else
+      check_platform & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
+    end
   end
 
   def check_platform
-    @request.user_platform == @redis['apps_os']
+    @request.user_platform == @direct_offer.redis_record['apps_os']
   end
 
   def check_country
-    country_from_redis( @request.country ).include?( @redis['offer_id'] )
+    country_from_redis( @request.country ).include?( @direct_offer.redis_record['offer_id'] )
   end
 
   def country_from_redis( abbr )
@@ -45,4 +44,11 @@ class BuyerRequest
     raw_redis ? JSON.parse( raw_redis ) : raw_redis
   end
 
+  def queue_id
+  end
+
+  def modify_url_with_uniq_iq( seller_url )
+    uniq_id = @request.env['request_id'] 
+    direct_offer.redis_record[ 'seller_url' ]#.gsub( 'aff_sub=', "aff_sub=#{ uniq_id }" )
+  end
 end

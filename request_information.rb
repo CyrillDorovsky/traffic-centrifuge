@@ -1,7 +1,7 @@
 require 'geoip'
 class RequestInformation
 
-  attr_accessor :referrer, :ip, :country, :user_agent, :user_platform, :locale, :env
+  attr_accessor :referrer, :ip, :country, :user_agent, :user_platform, :locale, :env, :url_query
 
   def initialize( request )
     @user_agent    = request.user_agent
@@ -10,6 +10,7 @@ class RequestInformation
     @country       = get_country( request )
     @user_platform = get_platform( request )
     @locale        = get_locale( request )
+    @url_query     = 
     @env           = request.env
   end
 
