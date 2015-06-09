@@ -12,7 +12,15 @@ class BuyerRequest
   end
 
   def visitor
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query,event: 'show' )
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, event: 'show' )
+  end
+
+  def redirect
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, redirect_url: @redirect_url, event: 'redirect' )
+  end
+
+  def trafback
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, event: 'trafback' )
   end
 
   def acceptable
@@ -49,6 +57,6 @@ class BuyerRequest
 
   def modify_url_with_uniq_iq( seller_url )
     uniq_id = @request.env['request_id'] 
-    direct_offer.redis_record[ 'seller_url' ]#.gsub( 'aff_sub=', "aff_sub=#{ uniq_id }" )
+    direct_offer.redis_record[ 'seller_url' ].gsub( 'aff_sub=', "aff_sub=#{ uniq_id }" )
   end
 end
