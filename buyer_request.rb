@@ -27,7 +27,9 @@ class BuyerRequest
   def acceptable
     if ENV['RACK_ENV'] == 'production'
       check_platform & check_country & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
-    else
+    elsif ENV['STAGING'] == 'enabled'
+      check_platform & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
+    end
       check_platform & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
     end
   end
