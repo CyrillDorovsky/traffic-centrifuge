@@ -77,7 +77,9 @@ class RequestInformation
       ip: @ip,
       request_id: @env['request_id'],
       country: @country,
+      user_agent: @user_agent,
       user_platform: @user_platform,
+      timestamp: Time.zone.now.to_i.to_s,
       locale: @locale }
   end
 end
