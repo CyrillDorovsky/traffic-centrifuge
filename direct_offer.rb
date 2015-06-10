@@ -8,11 +8,7 @@ class DirectOffer
   end
 
   def pull_offer_from_redis
-    begin
-      JSON.parse( $redis.get( "direct_offer_#{ @redirect_code }" ) )
-    rescue
-      default_offer
-    end
+    JSON.parse( $redis.get( "direct_offer_#{ @redirect_code }" ) )
   end
 
   def default_offer
