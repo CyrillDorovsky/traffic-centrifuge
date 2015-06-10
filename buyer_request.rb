@@ -29,7 +29,7 @@ class BuyerRequest
       check_platform & check_country & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
     elsif ENV['STAGING'] == 'enabled'
       check_platform & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
-    end
+    else
       check_platform & @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
     end
   end
