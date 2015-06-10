@@ -48,6 +48,7 @@ get '/:redirect_code' do
   q = $bunny_channel.queue( "direct_offers" )
   q.publish buyer_request.visitor
   if buyer_request.acceptable
+    p buyer_request.redirect
     redirect buyer_request.redirect_url
   else
     body JSON.generate( buyer_request.direct_offer.redis_record )
