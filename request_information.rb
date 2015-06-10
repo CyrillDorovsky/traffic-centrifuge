@@ -79,7 +79,7 @@ class RequestInformation
       country: @country,
       user_agent: @user_agent,
       user_platform: @user_platform,
-      timestamp: Time.zone.now.to_i.to_s,
+      timestamp: Time.new.to_i.to_s,
       locale: @locale }
   end
 end
