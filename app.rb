@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'newrelic_rpm'
 require './request_id_middleware'
 require './request_information'
 require 'hashids'
