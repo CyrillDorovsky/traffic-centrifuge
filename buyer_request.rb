@@ -1,9 +1,11 @@
 require 'useragent'
 
 class BuyerRequest
-  attr_accessor :request, :session, :redirect_url, :direct_offer, :dealer_id, :url_query
+  
+  attr_accessor :request, :session, :redirect_url, :direct_offer, :dealer_id, :url_query, :params
 
   def initialize( request, session, params = {} )
+    @params = params
     @request = RequestInformation.new( request )
     @direct_offer = DirectOffer.new( params[ 'redirect_code' ] )
     @redirect_url = modify_url_with_uniq_iq( @direct_offer )
@@ -12,15 +14,11 @@ class BuyerRequest
   end
 
   def visitor
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, event: 'show' )
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, event: 'show', params: @params )
   end
 
   def redirect
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, redirect_url: @redirect_url, event: 'redirect' )
-  end
-
-  def trafback
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, event: 'trafback' )
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, event: 'redirect', params: @params, redirect_url: @redirect_url )
   end
 
   def acceptable

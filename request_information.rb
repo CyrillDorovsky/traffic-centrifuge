@@ -1,4 +1,5 @@
 require 'geoip'
+
 class RequestInformation
 
   attr_accessor :referrer, :ip, :country, :user_agent, :user_platform, :locale, :env, :url_query
@@ -77,7 +78,9 @@ class RequestInformation
       ip: @ip,
       request_id: @env['request_id'],
       country: @country,
+      user_agent: @user_agent,
       user_platform: @user_platform,
+      timestamp: @env['request_timestamp'],
       locale: @locale }
   end
 end
