@@ -13,11 +13,11 @@ class BuyerRequest
   end
 
   def visitor
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, event: 'show', params: @params )#url_query: @url_query,
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, event: 'direct_offer_show', params: @params )#url_query: @url_query,
   end
 
   def redirect
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, redirect_url: @redirect_url, event: 'redirect' )
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, redirect_url: @redirect_url, event: 'direct_offer_redirect' )
   end
 
   def trafback

@@ -31,6 +31,7 @@ configure do
   $bunny = Bunny.new ENV['CLOUDAMQP_URL']
   $bunny.start
   $bunny_channel = $bunny.create_channel
+  $event_queue = $bunny_channel.queue( "event_queue", durable: true, auto_delete: false )
   
 end
 
@@ -46,8 +47,7 @@ end
 get '/:redirect_code' do
   session[ :request_id ] = env['request_id'] 
   buyer_request = BuyerRequest.new( request, session, params )
-  q = $bunny_channel.queue( "direct_offers" )
-  q.publish buyer_request.visitor
+  $event_queue.publish buyer_request.visitor
   if buyer_request.acceptable
     redirect buyer_request.redirect_url
   else
