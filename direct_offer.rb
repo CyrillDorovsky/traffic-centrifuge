@@ -16,7 +16,7 @@ class DirectOffer
   end
 
   def default_offer
-    { 'seller_url' => 'http://google.com/aff_sub=' }
+    JSON.parse( $redis.get( "direct_offer_0zuO6" ) )
   end
 
   def for_message
