@@ -31,7 +31,7 @@ configure do
   $bunny = Bunny.new ENV['CLOUDAMQP_URL']
   $bunny.start
   $bunny_channel = $bunny.create_channel
-  $event_queue = $bunny_channel.queue( "event_queue", durable: true, auto_delete: false )
+  $event_queue = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
   
 end
 
