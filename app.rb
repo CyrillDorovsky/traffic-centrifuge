@@ -49,6 +49,7 @@ get '/:redirect_code' do
   buyer_request = BuyerRequest.new( request, session, params )
   $event_queue.publish buyer_request.visitor
   if buyer_request.acceptable
+    $event_queue.publish buyer_request.redirect
     redirect buyer_request.redirect_url
   else
     body JSON.generate( buyer_request.direct_offer.redis_record )
