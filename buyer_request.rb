@@ -17,7 +17,7 @@ class BuyerRequest
   end
 
   def redirect
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, redirect_url: @redirect_url, event: 'direct_offer_redirect' )
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, redirect_url: @redirect_url, event: 'direct_offer_redirect' )
   end
 
   def trafback
