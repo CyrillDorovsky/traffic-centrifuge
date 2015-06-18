@@ -52,6 +52,6 @@ get '/:redirect_code' do
     $event_queue.publish buyer_request.redirect
     redirect buyer_request.redirect_url
   else
-    body JSON.generate( buyer_request.direct_offer.redis_record )
+    body 'Offer is not approved'
   end
 end
