@@ -1,5 +1,5 @@
 class DirectOffer
-  attr_accessor :redis_record, :redirect_url, :dealer_id
+  attr_accessor :redis_record, :redirect_url, :dealer_id, :redirect_code
 
   def initialize( redirect_code )
     @redirect_code = redirect_code
