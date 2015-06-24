@@ -2,11 +2,18 @@ GEM
   remote: https://rubygems.org/
   specs:
     amq-protocol (1.9.2)
+    bson (3.1.0)
     bunny (1.7.0)
       amq-protocol (>= 1.9.2)
+    connection_pool (2.0.0)
     geoip (1.4.0)
     hashids (1.0.2)
+    moped (2.0.6)
+      bson (~> 3.0)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
     newrelic_rpm (3.9.1.236)
+    optionable (0.2.0)
     puma (2.11.3)
       rack (>= 1.1, < 2.0)
     puma (2.11.3-java)
@@ -34,6 +41,7 @@ DEPENDENCIES
   bunny
   geoip
   hashids
+  moped
   newrelic_rpm
   puma
   redis
