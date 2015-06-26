@@ -47,11 +47,11 @@ end
 
 get '/:redirect_code' do
   buyer_request = BuyerRequest.new( request, session, params )
-  unless cookies[ 'buyer_request_id' ]
-    $event_queue.publish buyer_request.visitor
-    cookies[ 'buyer_request_id' ] = env['request_id']
-  end
   if buyer_request.acceptable
+    unless cookies[ 'buyer_request_id' ]
+      $event_queue.publish buyer_request.visitor
+      cookies[ 'buyer_request_id' ] = env['request_id']
+    end
     $event_queue.publish buyer_request.redirect
     redirect buyer_request.redirect_url
   else
