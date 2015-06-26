@@ -2,11 +2,21 @@ GEM
   remote: https://rubygems.org/
   specs:
     amq-protocol (1.9.2)
+    backports (3.6.4)
+    bson (3.1.0)
+    bson (3.1.0-java)
     bunny (1.7.0)
       amq-protocol (>= 1.9.2)
+    connection_pool (2.0.0)
     geoip (1.4.0)
     hashids (1.0.2)
+    moped (2.0.6)
+      bson (~> 3.0)
+      connection_pool (~> 2.0)
+      optionable (~> 0.2.0)
+    multi_json (1.11.1)
     newrelic_rpm (3.9.1.236)
+    optionable (0.2.0)
     puma (2.11.3)
       rack (>= 1.1, < 2.0)
     puma (2.11.3-java)
@@ -14,13 +24,25 @@ GEM
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
     redis (3.1.0)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+<<<<<<< HEAD
     sinatra-subdomain (0.1.2)
       sinatra
+=======
+    sinatra-contrib (1.4.4)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (>= 1.3, < 3)
+>>>>>>> 3e4085f03c1e28375fc2e9b95b910f6ceb5126f6
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -36,11 +58,16 @@ DEPENDENCIES
   bunny
   geoip
   hashids
+  moped
   newrelic_rpm
   puma
   redis
   sinatra
+<<<<<<< HEAD
   sinatra-subdomain
+=======
+  sinatra-contrib
+>>>>>>> 3e4085f03c1e28375fc2e9b95b910f6ceb5126f6
   slim
   useragent
 

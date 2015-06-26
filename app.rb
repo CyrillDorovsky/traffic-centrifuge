@@ -1,5 +1,6 @@
 require 'sinatra'
 require "sinatra/subdomain"
+require 'sinatra/cookies'
 require 'newrelic_rpm'
 require './request_id_middleware'
 require './request_information'
@@ -33,7 +34,7 @@ configure do
   $bunny.start
   $bunny_channel = $bunny.create_channel
   $event_queue = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
-  
+
 end
 
 helpers do
@@ -47,10 +48,12 @@ end
 
 subdomain :target do
   get '/:redirect_code' do
-    session[ :request_id ] = env['request_id'] 
     buyer_request = BuyerRequest.new( request, session, params )
-    $event_queue.publish buyer_request.visitor
     if buyer_request.acceptable
+      unless cookies[ 'buyer_request_id' ]
+        $event_queue.publish buyer_request.visitor
+        cookies[ 'buyer_request_id' ] = env['request_id']
+      end
       $event_queue.publish buyer_request.redirect
       redirect buyer_request.redirect_url
     else

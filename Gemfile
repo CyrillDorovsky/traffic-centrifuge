@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'moped'
 gem 'useragent'
 gem 'slim'
 gem 'geoip'
