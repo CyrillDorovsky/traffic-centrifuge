@@ -19,6 +19,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sinatra-subdomain (0.1.2)
+      sinatra
     slim (2.0.3)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -38,5 +40,9 @@ DEPENDENCIES
   puma
   redis
   sinatra
+  sinatra-subdomain
   slim
   useragent
+
+BUNDLED WITH
+   1.10.4

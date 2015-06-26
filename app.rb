@@ -1,4 +1,5 @@
 require 'sinatra'
+require "sinatra/subdomain"
 require 'newrelic_rpm'
 require './request_id_middleware'
 require './request_information'
@@ -44,14 +45,16 @@ get '/' do
   body JSON.generate( request_id: env['request_id'] )
 end
 
-get '/:redirect_code' do
-  session[ :request_id ] = env['request_id'] 
-  buyer_request = BuyerRequest.new( request, session, params )
-  $event_queue.publish buyer_request.visitor
-  if buyer_request.acceptable
-    $event_queue.publish buyer_request.redirect
-    redirect buyer_request.redirect_url
-  else
-    body 'Offer is not approved'
+subdomain :target do
+  get '/:redirect_code' do
+    session[ :request_id ] = env['request_id'] 
+    buyer_request = BuyerRequest.new( request, session, params )
+    $event_queue.publish buyer_request.visitor
+    if buyer_request.acceptable
+      $event_queue.publish buyer_request.redirect
+      redirect buyer_request.redirect_url
+    else
+      body 'Offer is not approved'
+    end
   end
 end
