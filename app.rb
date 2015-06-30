@@ -32,8 +32,9 @@ configure do
 
   $bunny = Bunny.new ENV['CLOUDAMQP_URL']
   $bunny.start
-  $bunny_channel = $bunny.create_channel
-  $event_queue = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
+  $bunny_channel  = $bunny.create_channel
+  $event_queue    = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
+  $postback_queue = $bunny_channel.queue( "postbacks", durable: true, auto_delete: false )
 
 end
 
@@ -48,7 +49,7 @@ end
 
 get '/postback/:any' do
   postback = request.env['HTTP_HOST'] + request.fullpath
-  $event_queue.publish postback
+  $postback_queue.publish postback
 end
 
 subdomain :target do
