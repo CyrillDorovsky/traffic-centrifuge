@@ -1,4 +1,6 @@
 require 'sinatra'
+require "sinatra/subdomain"
+require 'sinatra/cookies'
 require 'newrelic_rpm'
 require './request_id_middleware'
 require './request_information'
@@ -30,9 +32,10 @@ configure do
 
   $bunny = Bunny.new ENV['CLOUDAMQP_URL']
   $bunny.start
-  $bunny_channel = $bunny.create_channel
-  $event_queue = $bunny_channel.queue( "event_queue", durable: true, auto_delete: false )
-  
+  $bunny_channel  = $bunny.create_channel
+  $event_queue    = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
+  $postback_queue = $bunny_channel.queue( "postbacks", durable: true, auto_delete: false )
+
 end
 
 helpers do
@@ -44,14 +47,23 @@ get '/' do
   body JSON.generate( request_id: env['request_id'] )
 end
 
-get '/:redirect_code' do
-  session[ :request_id ] = env['request_id'] 
-  buyer_request = BuyerRequest.new( request, session, params )
-  $event_queue.publish buyer_request.visitor
-  if buyer_request.acceptable
-    q.publish buyer_request.redirect
-    redirect buyer_request.redirect_url
-  else
-    body JSON.generate( buyer_request.direct_offer.redis_record )
+get '/postback/:any' do
+  postback = request.env['HTTP_HOST'] + request.fullpath
+  $postback_queue.publish postback
+end
+
+subdomain :target do
+  get '/:redirect_code' do
+    buyer_request = BuyerRequest.new( request, session, params )
+    if buyer_request.acceptable
+      unless cookies[ 'buyer_request_id' ]
+        $event_queue.publish buyer_request.visitor
+        cookies[ 'buyer_request_id' ] = env['request_id']
+      end
+      $event_queue.publish buyer_request.redirect
+      redirect buyer_request.redirect_url
+    else
+      body 'Offer is not approved'
+    end
   end
 end

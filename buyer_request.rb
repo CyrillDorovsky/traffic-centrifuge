@@ -14,19 +14,19 @@ class BuyerRequest
   end
 
   def visitor
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, event: 'show', params: @params )
+    JSON.generate( from: @direct_offer.redirect_code, offer: @direct_offer.for_message, request: @request.for_message, event: 'direct_offer_show', params: @params )#url_query: @url_query,
   end
 
   def redirect
-    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, event: 'redirect', params: @params, redirect_url: @redirect_url )
+    JSON.generate( from: @direct_offer.redirect_code, offer: @direct_offer.for_message, request: @request.for_message, redirect_url: @redirect_url, event: 'direct_offer_redirect', params: @params )
+  end
+
+  def trafback
+    JSON.generate( offer: @direct_offer.for_message, request: @request.for_message, url_query: @url_query, event: 'trafback' )
   end
 
   def acceptable
-    if ENV['RACK_ENV'] == 'production'
-      @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
-    else
-      @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
-    end
+    @direct_offer.redis_record['enabled'] & @direct_offer.redis_record['approved']
   end
 
   def check_platform

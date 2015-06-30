@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'moped'
 gem 'useragent'
 gem 'slim'
 gem 'geoip'
@@ -9,3 +11,4 @@ gem 'puma'
 gem 'redis'
 gem 'bunny'
 gem 'newrelic_rpm'
+gem 'sinatra-subdomain'
