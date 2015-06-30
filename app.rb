@@ -46,6 +46,11 @@ get '/' do
   body JSON.generate( request_id: env['request_id'] )
 end
 
+get '/postback/:any' do
+  postback = request.env['HTTP_HOST'] + request.fullpath
+  $event_queue.publish postback
+end
+
 subdomain :target do
   get '/:redirect_code' do
     buyer_request = BuyerRequest.new( request, session, params )
