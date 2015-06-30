@@ -17,3 +17,4 @@
 .DS_Store
 /db_dumps
 .powrc
+.env
