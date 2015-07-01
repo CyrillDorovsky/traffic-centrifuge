@@ -47,6 +47,11 @@ get '/' do
 end
 
 get '/:redirect_code' do
+  $bunny = Bunny.new ENV['CLOUDAMQP_URL']
+  $bunny.start
+  $bunny_channel = $bunny.create_channel
+  $event_queue = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
+
   buyer_request = BuyerRequest.new( request, session, params )
   if buyer_request.acceptable
     unless cookies[ 'buyer_request_id' ]
