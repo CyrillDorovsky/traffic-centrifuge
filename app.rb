@@ -58,12 +58,14 @@ get '/:redirect_code' do
   else
     body 'Offer is not approved'
   end
+  $bunny.close
 end
 
 
 get '/postback/:any' do
   postback = request.env['HTTP_HOST'] + request.fullpath
   $postback_queue.publish postback
+  $bunny.close
 end
 
 subdomain :target do
@@ -79,5 +81,6 @@ subdomain :target do
     else
       body 'Offer is not approved'
     end
+    $bunny.close
   end
 end

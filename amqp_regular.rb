@@ -6,5 +6,6 @@ class AmqpRegular
     bunny_channel  = bunny.create_channel
     regular_tasks = bunny_channel.queue( queue_name, durable: true )
     regular_tasks.publish message
+    bunny.close
   end
 end
