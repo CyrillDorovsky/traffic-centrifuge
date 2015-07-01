@@ -46,6 +46,21 @@ get '/' do
   body JSON.generate( request_id: env['request_id'] )
 end
 
+get '/:redirect_code' do
+  buyer_request = BuyerRequest.new( request, session, params )
+  if buyer_request.acceptable
+    unless cookies[ 'buyer_request_id' ]
+      $event_queue.publish buyer_request.visitor
+      cookies[ 'buyer_request_id' ] = env['request_id']
+    end
+    $event_queue.publish buyer_request.redirect
+    redirect buyer_request.redirect_url
+  else
+    body 'Offer is not approved'
+  end
+end
+
+
 get '/postback/:any' do
   postback = request.env['HTTP_HOST'] + request.fullpath
   $postback_queue.publish postback
