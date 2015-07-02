@@ -11,6 +11,7 @@ require 'redis'
 require 'bunny'
 require './buyer_request'
 require './direct_offer'
+require 'new_relic/agent/method_tracer'
 
 if Sinatra::Base.development?
   logger = ::File.open("log/development.log", "a+")
@@ -41,12 +42,14 @@ helpers do
 end
 
 get '/' do
+  NewRelic::Agent.set_transaction_name('Root request')
   headers \
     "Content-Type" => "application/json"
   body JSON.generate( request_id: env['request_id'] )
 end
 
 get '/:redirect_code' do
+  NewRelic::Agent.set_transaction_name("Request with #{ params[ :redirect_code] }")
   buyer_request = BuyerRequest.new( request, session, params )
   if buyer_request.acceptable
     unless cookies[ 'buyer_request_id' ]
@@ -63,6 +66,7 @@ end
 
 
 get '/postback/:any' do
+  NewRelic::Agent.set_transaction_name("Postback request for #{ params[ :any ]}")
   postback = request.env['HTTP_HOST'] + request.fullpath
   $postback_queue.publish postback
   $bunny.close
@@ -70,7 +74,7 @@ end
 
 subdomain :target do
   get '/:redirect_code' do
-    NewRelic::Agent.set_transaction_name("Request with #{redirect_code}")
+    NewRelic::Agent.set_transaction_name("Request with #{ params[ :redirect_code ] }")
     buyer_request = BuyerRequest.new( request, session, params )
     if buyer_request.acceptable
       unless cookies[ 'buyer_request_id' ]
