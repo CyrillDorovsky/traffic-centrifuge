@@ -70,6 +70,7 @@ end
 
 subdomain :target do
   get '/:redirect_code' do
+    NewRelic::Agent.set_transaction_name("Request with #{redirect_code}")
     buyer_request = BuyerRequest.new( request, session, params )
     if buyer_request.acceptable
       unless cookies[ 'buyer_request_id' ]
