@@ -55,6 +55,6 @@ class BuyerRequest
 
   def modify_url_with_uniq_iq( seller_url )
     uniq_id = @request.env['request_id'] 
-    direct_offer.redis_record[ 'seller_url' ].gsub( 'aff_sub=', "aff_sub=#{ uniq_id }" )
+    direct_offer.redis_record[ 'seller_url' ].gsub( 'mongo_id', uniq_id )
   end
 end
