@@ -1,4 +1,6 @@
 require 'sinatra'
+require "sinatra/subdomain"
+require 'sinatra/cookies'
 require 'newrelic_rpm'
 require './request_id_middleware'
 require './request_information'
@@ -9,6 +11,7 @@ require 'redis'
 require 'bunny'
 require './buyer_request'
 require './direct_offer'
+require 'new_relic/agent/method_tracer'
 
 if Sinatra::Base.development?
   logger = ::File.open("log/development.log", "a+")
@@ -30,28 +33,59 @@ configure do
 
   $bunny = Bunny.new ENV['CLOUDAMQP_URL']
   $bunny.start
-  $bunny_channel = $bunny.create_channel
-  $event_queue = $bunny_channel.queue( "event_queue", durable: true, auto_delete: false )
-  
+  $bunny_channel  = $bunny.create_channel
+  $event_queue    = $bunny_channel.queue( "api_events", durable: true, auto_delete: false )
+
 end
 
 helpers do
 end
 
 get '/' do
+  NewRelic::Agent.set_transaction_name('Root request')
   headers \
     "Content-Type" => "application/json"
   body JSON.generate( request_id: env['request_id'] )
 end
 
 get '/:redirect_code' do
-  session[ :request_id ] = env['request_id'] 
+  NewRelic::Agent.set_transaction_name("Request with #{ params[ :redirect_code] }")
   buyer_request = BuyerRequest.new( request, session, params )
-  $event_queue.publish buyer_request.visitor
   if buyer_request.acceptable
-    q.publish buyer_request.redirect
+    unless cookies[ 'buyer_request_id' ]
+      $event_queue.publish buyer_request.visitor
+      cookies[ 'buyer_request_id' ] = env['request_id']
+    end
+    $event_queue.publish buyer_request.redirect
     redirect buyer_request.redirect_url
   else
-    body JSON.generate( buyer_request.direct_offer.redis_record )
+    body 'Offer is not approved'
+  end
+  $bunny.close
+end
+
+
+get '/postback/:any' do
+  NewRelic::Agent.set_transaction_name("Postback request for #{ params[ :any ]}")
+  postback = request.env['HTTP_HOST'] + request.fullpath
+  $postback_queue.publish postback
+  $bunny.close
+end
+
+subdomain :target do
+  get '/:redirect_code' do
+    NewRelic::Agent.set_transaction_name("Request with #{ params[ :redirect_code ] }")
+    buyer_request = BuyerRequest.new( request, session, params )
+    if buyer_request.acceptable
+      unless cookies[ 'buyer_request_id' ]
+        $event_queue.publish buyer_request.visitor
+        cookies[ 'buyer_request_id' ] = env['request_id']
+      end
+      $event_queue.publish buyer_request.redirect
+      redirect buyer_request.redirect_url
+    else
+      body 'Offer is not approved'
+    end
+    $bunny.close
   end
 end
