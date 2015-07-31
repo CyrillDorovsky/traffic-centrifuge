@@ -16,4 +16,5 @@
 /tmp
 .DS_Store
 /db_dumps
+.env
 .powrc
